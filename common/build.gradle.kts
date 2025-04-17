@@ -39,7 +39,9 @@ dependencies {
     // dependencies must also be pulled in to minimize problems, from remapping issues to compile errors.
     // All dependencies except Flywheel and Registrate are NOT safe to use!
     // Flywheel and Registrate must also be used carefully due to differences.
-    modCompileOnly("com.simibubi.create:create-fabric-${"minecraft_version"()}:${"create_fabric_version"()}")
+    modCompileOnly("com.simibubi.create:create-${"minecraft_version"()}:${"create_forge_version"()}:slim")
+    modCompileOnly("net.createmod.ponder:Ponder-Forge-${"minecraft_version"()}:${"ponder_forge_version"()}")
+    modCompileOnly("com.tterrag.registrate:Registrate:${"registrate_forge_version"()}")
 
     // required for proper remapping and compiling
     modCompileOnly("net.fabricmc.fabric-api:fabric-api:${"fabric_api_version"()}")

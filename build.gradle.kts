@@ -354,11 +354,16 @@ fun Project.setupRepositories() {
         exclusiveMaven("https://api.modrinth.com/maven", "maven.modrinth") // LazyDFU, JourneyMap
         exclusiveMaven("https://cursemaven.com", "curse.maven")
         maven("https://maven.theillusivec4.top/") // Curios
-        maven("https://maven.tterrag.com/") { // Flywheel, Registrate, Create
+        maven("https://maven.createmod.net/") { // Create, Ponder, Flywheel
             content {
                 includeGroup("com.simibubi.create")
+                includeGroup("net.createmod.ponder")
+                includeGroup("dev.engine-room.flywheel")
+            }
+        }
+        maven("https://maven.tterrag.com/") { // Registrate,old flywheel
+            content {
                 includeGroup("com.tterrag.registrate")
-                includeGroup("com.jozufozu.flywheel")
             }
         }
         maven("https://maven.maxhenkel.de/repository/public") // Simple Voice Chat
