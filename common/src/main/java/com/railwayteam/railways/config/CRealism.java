@@ -18,11 +18,11 @@
 
 package com.railwayteam.railways.config;
 
-import com.simibubi.create.foundation.config.ConfigBase;
+import net.createmod.catnip.config.ConfigBase;
 
 @SuppressWarnings("unused")
 public class CRealism extends ConfigBase {
-    public final ConfigBool realisticTrains = b(false, "realisticTrains", Comments.realisticTrains);
+    public final ConfigBase.ConfigBool realisticTrains = b(false, "realisticTrains", Comments.realisticTrains);
     public final ConfigBool realisticFuelTanks = b(true, "realisticFuelTanks", Comments.realisticFuelTanks);
 
     @Override

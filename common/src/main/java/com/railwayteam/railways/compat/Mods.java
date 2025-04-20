@@ -18,8 +18,8 @@
 
 package com.railwayteam.railways.compat;
 
-import com.simibubi.create.foundation.utility.Lang;
 import dev.architectury.injectables.annotations.ExpectPlatform;
+import net.createmod.catnip.lang.Lang;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;

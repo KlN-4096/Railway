@@ -18,11 +18,6 @@
 
 package com.railwayteam.railways.content.custom_tracks.casing;
 
-import com.jozufozu.flywheel.api.Material;
-import com.jozufozu.flywheel.backend.Backend;
-import com.jozufozu.flywheel.core.PartialModel;
-import com.jozufozu.flywheel.core.materials.model.ModelData;
-import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.railwayteam.railways.Railways;
@@ -30,9 +25,10 @@ import com.railwayteam.railways.mixin_interfaces.IHasTrackCasing;
 import com.railwayteam.railways.registry.CRBlockPartials;
 import com.simibubi.create.content.trains.track.BezierConnection;
 import com.simibubi.create.content.trains.track.TrackMaterial.TrackType;
-import com.simibubi.create.foundation.render.CachedBufferer;
-import com.simibubi.create.foundation.utility.Iterate;
-import com.simibubi.create.foundation.utility.Pair;
+import dev.engine_room.flywheel.lib.model.baked.PartialModel;
+import net.createmod.catnip.data.Iterate;
+import net.createmod.catnip.data.Pair;
+import net.createmod.catnip.render.CachedBuffers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.resources.model.BakedModel;
@@ -84,7 +80,7 @@ public abstract class CasingRenderUtils {
         BlockPos tePosition = bc.tePositions.getFirst();
         int light = LevelRenderer.getLightColor(level, BlockPos.containing(pos).offset(tePosition));
 
-        CachedBufferer.partial(texturedPartial, state)
+        CachedBuffers.partial(texturedPartial, state)
             .translate(pos.x, pos.y, pos.z)
             .translate(0, shiftDown, 0)
             .scale(1.001f)
@@ -106,7 +102,7 @@ public abstract class CasingRenderUtils {
         int light = LevelRenderer.getLightColor(level, segment.lightPosition.offset(tePosition));
         Matrix4f pose = copy(segment.tieTransform.pose());
         pose.translate(new Vector3f(0, (i % 4) * 0.001f, 0));
-        CachedBufferer.partial(texturedPartial, state)
+        CachedBuffers.partial(texturedPartial, state)
             .mulPose(pose)
             .mulNormal(segment.tieTransform.normal())
             .translate(0, shiftDown, 0)
@@ -121,7 +117,7 @@ public abstract class CasingRenderUtils {
               PoseStack.Pose transform = segment.railTransforms.get(first);
               Matrix4f pose2 = copy(transform.pose());
               pose2.translate(new Vector3f(0, (i % 4) * 0.001f, 0));
-              CachedBufferer.partial(texturedPartial, state)
+              CachedBuffers.partial(texturedPartial, state)
                   .mulPose(pose2)
                   .mulNormal(transform.normal())
                   .translate((first ? -(61 / 64.) : -(1 / 32.)) + (inner ? 0 : (first ? 1 : -1)), shiftDown, 0)
@@ -134,7 +130,7 @@ public abstract class CasingRenderUtils {
             PoseStack.Pose transform = segment.railTransforms.get(first);
             Matrix4f pose2 = copy(transform.pose());
             pose2.translate(new Vector3f(0, (i % 4) * 0.001f, 0));
-            CachedBufferer.partial(texturedPartial, state)
+            CachedBuffers.partial(texturedPartial, state)
                 .mulPose(pose2)
                 .mulNormal(transform.normal())
                 .translate(-0.5 + (trackType == NARROW_GAUGE ? (first ? 0.5 : -0.5) : 0), shiftDown, 0)

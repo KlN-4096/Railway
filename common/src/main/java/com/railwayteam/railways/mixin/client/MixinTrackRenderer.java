@@ -18,8 +18,6 @@
 
 package com.railwayteam.railways.mixin.client;
 
-import com.jozufozu.flywheel.core.PartialModel;
-import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.railwayteam.railways.mixin_interfaces.IHasTrackCasing;
@@ -29,8 +27,9 @@ import com.railwayteam.railways.registry.CRBlockPartials;
 import com.railwayteam.railways.registry.CRTrackMaterials;
 import com.railwayteam.railways.util.client.ClientTextUtils;
 import com.simibubi.create.content.trains.track.*;
-import com.simibubi.create.foundation.render.CachedBufferer;
-import com.simibubi.create.foundation.utility.Iterate;
+import dev.engine_room.flywheel.lib.model.baked.PartialModel;
+import net.createmod.catnip.data.Iterate;
+import net.createmod.catnip.render.CachedBuffers;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -82,14 +81,14 @@ public class MixinTrackRenderer {
 
                 PartialModel texturedPartial = reTexture(spec.model, casingBlock);
 
-                CachedBufferer.partial(reTexture(spec.model, casingBlock), casingBlock.defaultBlockState())
+                CachedBuffers.partial(reTexture(spec.model, casingBlock), casingBlock.defaultBlockState())
                     .rotateX(transform.rx()).rotateY(transform.ry()).rotateZ(transform.rz())
                     .translate(transform.x(), transform.y(), transform.z())
                     .light(light)
                     .renderInto(ms, buffer.getBuffer(RenderType.cutoutMipped()));
 
                 for (CRBlockPartials.ModelTransform additionalTransform : spec.additionalTransforms) {
-                    CachedBufferer.partial(texturedPartial, casingBlock.defaultBlockState())
+                    CachedBuffers.partial(texturedPartial, casingBlock.defaultBlockState())
                         .rotateX(additionalTransform.rx()).rotateY(additionalTransform.ry()).rotateZ(additionalTransform.rz())
                         .translate(additionalTransform.x(), additionalTransform.y(), additionalTransform.z())
                         .light(light)
@@ -133,7 +132,7 @@ public class MixinTrackRenderer {
             int light = LevelRenderer.getLightColor(level, segment.lightPosition.offset(tePosition));
 
             PoseStack.Pose beamTransform = segment.beam;
-            CachedBufferer.partial(MONORAIL_SEGMENT_MIDDLE, air)
+            CachedBuffers.partial(MONORAIL_SEGMENT_MIDDLE, air)
                 .mulPose(beamTransform.pose())
                 .mulNormal(beamTransform.normal())
                 .light(light)
@@ -141,7 +140,7 @@ public class MixinTrackRenderer {
 
             for (boolean top : Iterate.trueAndFalse) {
                 PoseStack.Pose beamCapTransform = segment.beamCaps.get(top);
-                CachedBufferer.partial(top ? MONORAIL_SEGMENT_TOP : MONORAIL_SEGMENT_BOTTOM, air)
+                CachedBuffers.partial(top ? MONORAIL_SEGMENT_TOP : MONORAIL_SEGMENT_BOTTOM, air)
                     .mulPose(beamCapTransform.pose())
                     .mulNormal(beamCapTransform.normal())
                     .light(light)

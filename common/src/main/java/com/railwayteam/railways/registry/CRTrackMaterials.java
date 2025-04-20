@@ -19,7 +19,6 @@
 package com.railwayteam.railways.registry;
 
 import com.google.common.collect.ImmutableSet;
-import com.jozufozu.flywheel.core.PartialModel;
 import com.railwayteam.railways.Railways;
 import com.railwayteam.railways.content.custom_tracks.NoCollisionCustomTrackBlock;
 import com.railwayteam.railways.content.custom_tracks.monorail.MonorailTrackBlock;
@@ -30,6 +29,7 @@ import com.railwayteam.railways.mixin.AccessorBlockEntityType;
 import com.simibubi.create.content.trains.track.TrackBlock;
 import com.simibubi.create.content.trains.track.TrackMaterial;
 import com.simibubi.create.content.trains.track.TrackMaterial.TrackType;
+import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -146,9 +146,9 @@ public class CRTrackMaterials {
             .trackType(CRTrackMaterials.CRTrackType.MONORAIL)
             .noRecipeGen()
             .customModels(
-                () -> () -> new PartialModel(Railways.asResource("block/monorail/monorail/monorail_half")),
-                () -> () -> new PartialModel(Railways.asResource("block/empty")),
-                () -> () -> new PartialModel(Railways.asResource("block/empty"))
+                () -> () -> PartialModel.of(Railways.asResource("block/monorail/monorail/monorail_half")),
+                () -> () -> PartialModel.of(Railways.asResource("block/empty")),
+                () -> () -> PartialModel.of(Railways.asResource("block/empty"))
             )
             .build(),
         ENDER = make(Railways.asResource("ender"))

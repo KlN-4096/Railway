@@ -18,8 +18,8 @@
 
 package com.railwayteam.railways.content.custom_tracks.casing;
 
-import com.jozufozu.flywheel.core.PartialModel;
 import com.railwayteam.railways.mixin.client.AccessorPartialModel;
+import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.resources.ResourceLocation;
 

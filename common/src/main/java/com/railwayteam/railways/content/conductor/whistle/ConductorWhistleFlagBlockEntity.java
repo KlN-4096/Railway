@@ -20,7 +20,7 @@ package com.railwayteam.railways.content.conductor.whistle;
 
 import com.railwayteam.railways.content.conductor.ConductorEntity;
 import com.simibubi.create.Create;
-import com.simibubi.create.content.contraptions.ITransformableBlockEntity;
+import com.simibubi.create.api.contraption.transformable.TransformableBlockEntity;
 import com.simibubi.create.content.contraptions.StructureTransform;
 import com.simibubi.create.content.trains.entity.Train;
 import com.simibubi.create.content.trains.graph.EdgePointType;
@@ -34,12 +34,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
 
-public class ConductorWhistleFlagBlockEntity extends SmartBlockEntity implements ITransformableBlockEntity {
+public class ConductorWhistleFlagBlockEntity extends SmartBlockEntity implements TransformableBlockEntity {
 
     public TrackTargetingBehaviour<GlobalStation> station;
     private boolean tickedOnce = false;
@@ -92,10 +93,6 @@ public class ConductorWhistleFlagBlockEntity extends SmartBlockEntity implements
         }
     }
 
-    @Override
-    public void transform(StructureTransform transform) {
-        station.transform(transform);
-    }
 
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
@@ -113,5 +110,10 @@ public class ConductorWhistleFlagBlockEntity extends SmartBlockEntity implements
     protected void read(CompoundTag tag, boolean clientPacket) {
         super.read(tag, clientPacket);
         color = ConductorEntity.colorFrom(tag.getByte("SelectedColor"));
+    }
+
+    @Override
+    public void transform(BlockEntity blockEntity, StructureTransform transform) {
+        station.transform(transform);
     }
 }

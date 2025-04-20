@@ -18,7 +18,6 @@
 
 package com.railwayteam.railways.content.switches;
 
-import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.railwayteam.railways.content.switches.TrackSwitchBlock.SwitchState;
 import com.railwayteam.railways.content.switches.TrackSwitchBlockEntity.PonderData;
@@ -27,11 +26,11 @@ import com.railwayteam.railways.util.CustomTrackOverlayRendering;
 import com.simibubi.create.content.trains.track.ITrackBlock;
 import com.simibubi.create.content.trains.track.TrackTargetingBehaviour;
 import com.simibubi.create.foundation.blockEntity.renderer.SmartBlockEntityRenderer;
-import com.simibubi.create.foundation.ponder.PonderWorld;
-import com.simibubi.create.foundation.render.CachedBufferer;
-import com.simibubi.create.foundation.render.SuperByteBuffer;
-import com.simibubi.create.foundation.utility.AngleHelper;
-import com.simibubi.create.foundation.utility.Color;
+import dev.engine_room.flywheel.lib.transform.TransformStack;
+import net.createmod.catnip.math.AngleHelper;
+import net.createmod.catnip.render.CachedBuffers;
+import net.createmod.catnip.render.SuperByteBuffer;
+import net.createmod.catnip.theme.Color;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
@@ -95,7 +94,7 @@ public class TrackSwitchRenderer extends SmartBlockEntityRenderer<TrackSwitchBlo
       ms.pushPose();
       ms.translate(0, -2.0 / 16, 0);
 
-      buf = CachedBufferer.partial(CRBlockPartials.BRASS_SWITCH_FLAG, state)
+      buf = CachedBuffers.partial(CRBlockPartials.BRASS_SWITCH_FLAG, state)
         .light(light)
         .rotateCentered(Direction.UP, 1.5708f)
         .translate(0.5, 8.5 / 16, 0.5);
@@ -116,7 +115,7 @@ public class TrackSwitchRenderer extends SmartBlockEntityRenderer<TrackSwitchBlo
 
       ms.popPose();
     } else {
-      buf = CachedBufferer.partial(CRBlockPartials.ANDESITE_SWITCH_FLAG, state)
+      buf = CachedBuffers.partial(CRBlockPartials.ANDESITE_SWITCH_FLAG, state)
         .light(light);
 
       if (te.isReverseLeft()) {
@@ -131,7 +130,7 @@ public class TrackSwitchRenderer extends SmartBlockEntityRenderer<TrackSwitchBlo
       buf = buf.rotateCentered(Direction.UP, te.lerpedAngle.getValue(partialTicks));
       buf.renderInto(ms, buffer.getBuffer(RenderType.solid()));
 
-      CachedBufferer.partial(CRBlockPartials.ANDESITE_SWITCH_HANDLE, state)
+      CachedBuffers.partial(CRBlockPartials.ANDESITE_SWITCH_HANDLE, state)
         .light(light)
         .rotateCentered(Direction.UP, -1.5708f)  // 90°
         .renderInto(ms, buffer.getBuffer(RenderType.solid()));

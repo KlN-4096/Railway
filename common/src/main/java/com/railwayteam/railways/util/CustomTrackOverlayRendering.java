@@ -18,23 +18,21 @@
 
 package com.railwayteam.railways.util;
 
-import com.jozufozu.flywheel.core.PartialModel;
-import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.railwayteam.railways.content.custom_tracks.phantom.PhantomSpriteManager;
 import com.railwayteam.railways.mixin_interfaces.IHasTrackCasing;
 import com.railwayteam.railways.registry.CRBlockPartials;
 import com.railwayteam.railways.registry.CRBlockPartials.TrackCasingSpec;
 import com.railwayteam.railways.registry.CRTrackMaterials;
-import com.simibubi.create.content.schematics.SchematicWorld;
 import com.simibubi.create.content.trains.graph.EdgePointType;
 import com.simibubi.create.content.trains.graph.TrackEdge;
 import com.simibubi.create.content.trains.graph.TrackGraphLocation;
 import com.simibubi.create.content.trains.signal.TrackEdgePoint;
 import com.simibubi.create.content.trains.track.*;
 import com.simibubi.create.content.trains.track.TrackMaterial.TrackType;
-import com.simibubi.create.foundation.ponder.PonderWorld;
-import com.simibubi.create.foundation.render.CachedBufferer;
+import dev.engine_room.flywheel.lib.model.baked.PartialModel;
+import dev.engine_room.flywheel.lib.transform.TransformStack;
+import net.createmod.catnip.render.CachedBuffers;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.LevelRenderer;
@@ -91,7 +89,7 @@ public class CustomTrackOverlayRendering {
 
         PartialModel partial = prepareTrackOverlay(level, pos, trackState, bezier, direction, ms, model);
         if (partial != null)
-            CachedBufferer.partial(partial, trackState)
+            CachedBuffers.partial(partial, trackState)
                 .translate(.5, 0, .5)
                 .scale(scale)
                 .translate(offsetToSide ? .5 : -.5, 0, -.5)

@@ -23,8 +23,8 @@ import com.railwayteam.railways.content.smokestack.block.DieselSmokeStackBlock;
 import com.railwayteam.railways.content.smokestack.block.be.DieselSmokeStackBlockEntity;
 import com.railwayteam.railways.registry.CRBlockPartials;
 import com.simibubi.create.foundation.blockEntity.renderer.SmartBlockEntityRenderer;
-import com.simibubi.create.foundation.render.CachedBufferer;
-import com.simibubi.create.foundation.render.SuperByteBuffer;
+import net.createmod.catnip.render.CachedBuffers;
+import net.createmod.catnip.render.SuperByteBuffer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -40,7 +40,7 @@ public class DieselSmokeStackRenderer extends SmartBlockEntityRenderer<DieselSmo
         super.renderSafe(be, partialTicks, ms, buffer, light, overlay);
         Direction dir = be.getBlockState().getValue(DieselSmokeStackBlock.FACING);
 
-        SuperByteBuffer byteBuffer = CachedBufferer.partial(CRBlockPartials.DIESEL_STACK_FAN, be.getBlockState());
+        SuperByteBuffer byteBuffer = CachedBuffers.partial(CRBlockPartials.DIESEL_STACK_FAN, be.getBlockState());
 
         byteBuffer.light(light);
 

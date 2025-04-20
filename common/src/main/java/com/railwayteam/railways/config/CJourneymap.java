@@ -18,12 +18,12 @@
 
 package com.railwayteam.railways.config;
 
-import com.simibubi.create.foundation.config.ConfigBase;
+import net.createmod.catnip.config.ConfigBase;
 
 @SuppressWarnings("unused")
 public class CJourneymap extends ConfigBase {
 
-    public final ConfigInt farTrainSyncTicks = i(200, 10, 600, "farTrainSyncTicks", Comments.inTicks, Comments.farTrainSyncTicks);
+    public final ConfigBase.ConfigInt farTrainSyncTicks = i(200, 10, 600, "farTrainSyncTicks", Comments.inTicks, Comments.farTrainSyncTicks);
     public final ConfigInt nearTrainSyncTicks = i(5, 1, 600, "nearTrainSyncTicks", Comments.inTicks, Comments.nearTrainSyncTicks);
 
     @Override

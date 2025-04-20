@@ -18,10 +18,10 @@
 
 package com.railwayteam.railways.mixin.client;
 
-import com.jozufozu.flywheel.core.PartialModel;
 import com.railwayteam.railways.registry.CRBlockPartials;
 import com.railwayteam.railways.util.AbstractionUtils;
 import com.simibubi.create.content.contraptions.actors.psi.PortableStorageInterfaceRenderer;
+import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

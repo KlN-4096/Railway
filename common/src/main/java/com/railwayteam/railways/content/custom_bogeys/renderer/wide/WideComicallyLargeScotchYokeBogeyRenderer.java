@@ -18,92 +18,87 @@
 
 package com.railwayteam.railways.content.custom_bogeys.renderer.wide;
 
-import com.jozufozu.flywheel.api.MaterialManager;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.AllBlocks;
+import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.content.kinetics.simpleRelays.ShaftBlock;
 import com.simibubi.create.content.trains.bogey.BogeyRenderer;
-import com.simibubi.create.content.trains.bogey.BogeySizes;
-import com.simibubi.create.content.trains.entity.CarriageBogey;
-import com.simibubi.create.foundation.utility.AngleHelper;
-import com.simibubi.create.foundation.utility.Iterate;
+import net.createmod.catnip.math.AngleHelper;
+import net.createmod.catnip.render.CachedBuffers;
+import net.createmod.catnip.render.SuperByteBuffer;
+import net.createmod.catnip.data.Iterate;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.Blocks;
 
 import static com.railwayteam.railways.registry.CRBlockPartials.*;
 import static com.railwayteam.railways.registry.CRBlockPartials.WIDE_COMICALLY_LARGE_PINS;
 
-public class WideComicallyLargeScotchYokeBogeyRenderer extends BogeyRenderer {
+public class WideComicallyLargeScotchYokeBogeyRenderer implements BogeyRenderer {
     @Override
-    public void initialiseContraptionModelData(MaterialManager materialManager, CarriageBogey carriageBogey) {
-        createModelInstance(materialManager, WIDE_COMICALLY_LARGE_FRAME, WIDE_COMICALLY_LARGE_WHEELS,
-                WIDE_COMICALLY_LARGE_PINS, WIDE_COMICALLY_LARGE_PISTONS);
-        createModelInstance(materialManager, AllBlocks.SHAFT.getDefaultState()
-                .setValue(ShaftBlock.AXIS, Direction.Axis.Z), 2);
-        createModelInstance(materialManager, AllBlocks.SHAFT.getDefaultState()
-                .setValue(ShaftBlock.AXIS, Direction.Axis.X), 4);
-    }
-
-    @Override
-    public BogeySizes.BogeySize getSize() {
-        return BogeySizes.LARGE;
-    }
-
-    @Override
-    public void render(CompoundTag bogeyData, float wheelAngle, PoseStack ms, int light, VertexConsumer vb, boolean inContraption) {
-        boolean inInstancedContraption = vb == null;
-
-        BogeyModelData[] primaryShafts = getTransform(AllBlocks.SHAFT.getDefaultState()
-                .setValue(ShaftBlock.AXIS, Direction.Axis.Z), ms, inInstancedContraption, 2);
+    public void render(CompoundTag bogeyData, float wheelAngle, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int light, int overlay, boolean inContraption) {
+        VertexConsumer buffer = bufferSource.getBuffer(RenderType.cutoutMipped());
 
         for (int i : Iterate.zeroAndOne) {
-            primaryShafts[i].translate(-.5, 4 / 16., i * -1)
-                    .centre()
-                    .rotateZ(wheelAngle)
-                    .unCentre()
-                    .render(ms, light, vb);
+            SuperByteBuffer primaryShaft = CachedBuffers.block(AllBlocks.SHAFT.getDefaultState()
+                    .setValue(ShaftBlock.AXIS, Direction.Axis.Z));
+            primaryShaft.translate(-.5, 4 / 16., i * -1)
+                    .center()
+                    .rotateZDegrees(wheelAngle)
+                    .uncenter()
+                    .light(light)
+                    .overlay(overlay)
+                    .renderInto(poseStack, buffer);
         }
-
-        BogeyModelData[] secondaryShafts = getTransform(AllBlocks.SHAFT.getDefaultState()
-                .setValue(ShaftBlock.AXIS, Direction.Axis.X), ms, inInstancedContraption, 4);
 
         for (int i : Iterate.zeroAndOne) {
             for (int side : Iterate.zeroAndOne) {
-                secondaryShafts[i + (side * 2)]
-                        .translate(-1 + side, 4 / 16., (10 / 16.) + i * -(36 / 16.))
-                        .centre()
-                        .rotateX(wheelAngle)
-                        .unCentre()
-                        .render(ms, light, vb);
+                SuperByteBuffer secondaryShaft = CachedBuffers.block(AllBlocks.SHAFT.getDefaultState()
+                        .setValue(ShaftBlock.AXIS, Direction.Axis.X));
+                secondaryShaft.translate(-1 + side, 4 / 16., (10 / 16.) + i * -(36 / 16.))
+                        .center()
+                        .rotateXDegrees(wheelAngle)
+                        .uncenter()
+                        .light(light)
+                        .overlay(overlay)
+                        .renderInto(poseStack, buffer);
             }
         }
 
-        getTransform(WIDE_COMICALLY_LARGE_FRAME, ms, inInstancedContraption)
+        CachedBuffers.partial(WIDE_COMICALLY_LARGE_FRAME, Blocks.AIR.defaultBlockState())
+                .scale(1 - 1 / 512f)
                 .translate(0, 4 / 16., 0)
-                .render(ms, light, vb);
+                .light(light)
+                .overlay(overlay)
+                .renderInto(poseStack, buffer);
 
-        getTransform(WIDE_COMICALLY_LARGE_PISTONS, ms, inInstancedContraption)
+        CachedBuffers.partial(WIDE_COMICALLY_LARGE_PISTONS, Blocks.AIR.defaultBlockState())
+                .scale(1 - 1 / 512f)
                 .translate(0, 1.5, (1 / 4f + (5 / 16.)) * Math.sin(AngleHelper.rad(wheelAngle)))
-                .render(ms, light, vb);
+                .light(light)
+                .overlay(overlay)
+                .renderInto(poseStack, buffer);
 
-        if (!inInstancedContraption)
-            ms.pushPose();
-
-        getTransform(WIDE_COMICALLY_LARGE_WHEELS, ms, inInstancedContraption)
+        SuperByteBuffer wheels = CachedBuffers.partial(WIDE_COMICALLY_LARGE_WHEELS, Blocks.AIR.defaultBlockState());
+        wheels.scale(1 - 1 / 512f)
                 .translate(0, 1.5, 0)
-                .rotateX(wheelAngle)
+                .rotateXDegrees(wheelAngle)
                 .translate(0, 0, 0)
-                .render(ms, light, vb);
+                .light(light)
+                .overlay(overlay)
+                .renderInto(poseStack, buffer);
 
-        getTransform(WIDE_COMICALLY_LARGE_PINS, ms, inInstancedContraption)
+        SuperByteBuffer pins = CachedBuffers.partial(WIDE_COMICALLY_LARGE_PINS, Blocks.AIR.defaultBlockState());
+        pins.scale(1 - 1 / 512f)
                 .translate(0, 1.5, 0)
-                .rotateX(wheelAngle)
+                .rotateXDegrees(wheelAngle)
                 .translate(0, 1 / 4f + (5 / 16.), 0)
-                .rotateX(-wheelAngle)
-                .render(ms, light, vb);
-
-        if (!inInstancedContraption)
-            ms.popPose();
+                .rotateXDegrees(-wheelAngle)
+                .light(light)
+                .overlay(overlay)
+                .renderInto(poseStack, buffer);
     }
 }

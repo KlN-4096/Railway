@@ -25,9 +25,9 @@ import com.railwayteam.railways.content.conductor.toolbox.MountedToolbox;
 import com.railwayteam.railways.registry.CRBlockPartials;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.AllTags;
-import com.simibubi.create.foundation.render.CachedBufferer;
-import com.simibubi.create.foundation.render.SuperByteBuffer;
-import com.simibubi.create.foundation.utility.Iterate;
+import net.createmod.catnip.data.Iterate;
+import net.createmod.catnip.render.SuperByteBuffer;
+import net.createmod.catnip.render.CachedBuffers;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.EntityModel;
@@ -54,10 +54,10 @@ public class ConductorToolboxLayer<T extends ConductorEntity, M extends EntityMo
       MountedToolbox holder = conductorEntity.getToolbox();
       BlockState blockState = ((BlockItem) itemstack.getItem()).getBlock().defaultBlockState();
       SuperByteBuffer body =
-          CachedBufferer.partial(CRBlockPartials.TOOLBOX_BODIES.get(holder.getColor()), blockState);
+          CachedBuffers.partial(CRBlockPartials.TOOLBOX_BODIES.get(holder.getColor()), blockState);
       SuperByteBuffer lid =
-          CachedBufferer.partial(AllPartialModels.TOOLBOX_LIDS.get(holder.getColor()), blockState);
-      SuperByteBuffer drawer = CachedBufferer.partial(AllPartialModels.TOOLBOX_DRAWER, blockState);
+          CachedBuffers.partial(AllPartialModels.TOOLBOX_LIDS.get(holder.getColor()), blockState);
+      SuperByteBuffer drawer = CachedBuffers.partial(AllPartialModels.TOOLBOX_DRAWER, blockState);
 
       float lidAngle = holder.lid.getValue(partialTick);
       float drawerOffset = holder.drawers.getValue(partialTick);

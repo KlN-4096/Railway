@@ -30,10 +30,14 @@ import com.simibubi.create.content.redstone.link.RedstoneLinkNetworkHandler;
 import com.simibubi.create.content.trains.entity.Carriage;
 import com.simibubi.create.content.trains.entity.CarriageContraptionEntity;
 import com.simibubi.create.content.trains.entity.Train;
+import com.simibubi.create.content.trains.graph.DiscoveredPath;
 import com.simibubi.create.content.trains.schedule.ScheduleRuntime;
 import com.simibubi.create.content.trains.schedule.destination.ScheduleInstruction;
 import com.simibubi.create.foundation.gui.ModularGuiLineBuilder;
 import com.simibubi.create.foundation.utility.*;
+import net.createmod.catnip.data.Couple;
+import net.createmod.catnip.data.Pair;
+import net.createmod.catnip.data.WorldAttached;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
@@ -45,6 +49,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -91,7 +96,7 @@ public class RedstoneLinkInstruction extends ScheduleInstruction implements ICus
     }
 
     private MutableComponent formatted() {
-        return Components.translatable("railways.schedule.instruction.redstone_link.power", intData("Power"));
+        return Component.translatable("railways.schedule.instruction.redstone_link.power", intData("Power"));
     }
 
     @Override
@@ -118,13 +123,13 @@ public class RedstoneLinkInstruction extends ScheduleInstruction implements ICus
     public List<Component> getTitleAs(String type) {
         return ImmutableList.of(
             Lang.translateDirect("schedule.condition.redstone_link.frequency_powered"),
-            Components.literal(" #1 ").withStyle(ChatFormatting.GRAY)
+            Component.literal(" #1 ").withStyle(ChatFormatting.GRAY)
                 .append(freq.getFirst()
                     .getStack()
                     .getHoverName()
                     .copy()
                     .withStyle(ChatFormatting.DARK_AQUA)),
-            Components.literal(" #2 ").withStyle(ChatFormatting.GRAY)
+            Component.literal(" #2 ").withStyle(ChatFormatting.GRAY)
                 .append(freq.getSecond()
                     .getStack()
                     .getHoverName()
@@ -163,7 +168,7 @@ public class RedstoneLinkInstruction extends ScheduleInstruction implements ICus
         builder.addScrollInput(20, 101, (si, l) -> {
             si.withRange(1, 16)
                 .withStepFunction(c -> c.shift ? 5 : 1)
-                .titled(Components.translatable("railways.schedule.instruction.redstone_link.power_edit_box"));
+                .titled(Component.translatable("railways.schedule.instruction.redstone_link.power_edit_box"));
             //l.withSuffix("%");
         }, "Power");
     }

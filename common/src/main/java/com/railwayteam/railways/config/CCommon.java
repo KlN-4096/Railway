@@ -18,13 +18,13 @@
 
 package com.railwayteam.railways.config;
 
-import com.simibubi.create.foundation.config.ConfigBase;
-import com.simibubi.create.foundation.config.ui.ConfigAnnotations;
+import net.createmod.catnip.config.ConfigBase;
+import net.createmod.catnip.config.ui.ConfigAnnotations;
 
 @SuppressWarnings("unused")
 public class CCommon extends ConfigBase {
 
-    public final ConfigBool registerMissingTracks = b(false, "registerMissingTracks", Comments.registerMissingTracks, ConfigAnnotations.RequiresRestart.BOTH.asComment());
+    public final ConfigBase.ConfigBool registerMissingTracks = b(false, "registerMissingTracks", Comments.registerMissingTracks, ConfigAnnotations.RequiresRestart.BOTH.asComment());
     public final ConfigBool disableDatafixer = b(false, "disableDatafixer", Comments.disableDatafixer, ConfigAnnotations.RequiresRestart.BOTH.asComment());
 
     @Override

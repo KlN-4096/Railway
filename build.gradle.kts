@@ -364,7 +364,6 @@ fun Project.setupRepositories() {
         maven("https://maven.tterrag.com/") { // Registrate,old flywheel
             content {
                 includeGroup("com.tterrag.registrate")
-                includeGroup("com.jozufozu.flywheel")
             }
         }
         maven("https://maven.maxhenkel.de/repository/public") // Simple Voice Chat

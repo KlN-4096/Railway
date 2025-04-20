@@ -18,12 +18,12 @@
 
 package com.railwayteam.railways.config;
 
-import com.simibubi.create.foundation.config.ConfigBase;
+import net.createmod.catnip.config.ConfigBase;
 
 @SuppressWarnings("unused")
 public class CConductors extends ConfigBase {
 
-    public final ConfigBool whistleRequiresOwning = b(false, "mustOwnBoundTrain", Comments.whistleRequiresOwning);
+    public final ConfigBase.ConfigBool whistleRequiresOwning = b(false, "mustOwnBoundTrain", Comments.whistleRequiresOwning);
     public final ConfigInt maxVentLength = i(64, 1, Integer.MAX_VALUE, "maxConductorVentLength", Comments.maxVentLength);
     public final ConfigInt whistleRebindRate = i(10, 1, 600, "whistleRebindRate", Comments.whistleRebindRate);
 

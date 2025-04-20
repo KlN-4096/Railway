@@ -42,6 +42,10 @@ dependencies {
     modCompileOnly("com.simibubi.create:create-fabric-${"minecraft_version"()}:${"create_fabric_version"()}")
 //    modCompileOnly("com.simibubi.create:create-${"minecraft_version"()}:${"create_forge_version"()}:slim")
     modCompileOnly("net.createmod.ponder:Ponder-Fabric-${"minecraft_version"()}:${"ponder_fabric_version"()}")
+//    maybe useless?
+//    modCompileOnly("dev.engine-room.flywheel:flywheel-fabric-api-${"minecraft_version"()}:${"flywheel_forge_version"()}")
+//    modCompileOnly("dev.engine-room.flywheel:flywheel-fabric-${"minecraft_version"()}:${"flywheel_forge_version"()}")
+//    ----------
     modCompileOnly("com.tterrag.registrate:Registrate:${"registrate_forge_version"()}")
 
     // required for proper remapping and compiling

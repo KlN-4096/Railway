@@ -19,7 +19,6 @@
 package com.railwayteam.railways.compat.tracks;
 
 import com.google.common.collect.ImmutableSet;
-import com.jozufozu.flywheel.core.PartialModel;
 import com.railwayteam.railways.Railways;
 import com.railwayteam.railways.compat.Mods;
 import com.railwayteam.railways.config.CRConfigs;
@@ -35,6 +34,7 @@ import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
 import com.tterrag.registrate.util.nullness.NonNullConsumer;
+import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
@@ -149,9 +149,9 @@ public abstract class TrackCompatUtils {
         String prefix = "block/track/compat/" + namespace + "/" + path + "/";
 
         TrackMaterialFactory materialFactory = factory.customModels(
-                () -> () -> new PartialModel(Railways.asResource(prefix + "tie")),
-                () -> () -> new PartialModel(Railways.asResource(prefix + "segment_left")),
-                () -> () -> new PartialModel(Railways.asResource(prefix + "segment_right"))
+                () -> () -> PartialModel.of(Railways.asResource(prefix + "tie")),
+                () -> () -> PartialModel.of(Railways.asResource(prefix + "segment_left")),
+                () -> () -> PartialModel.of(Railways.asResource(prefix + "segment_right"))
         );
 
         String customLang = trackCompat.getLang(path);

@@ -20,12 +20,12 @@ package com.railwayteam.railways.config;
 
 import com.railwayteam.railways.content.smokestack.SmokeType;
 import com.railwayteam.railways.content.smokestack.particles.legacy.SmokeParticle.SmokeQuality;
-import com.simibubi.create.foundation.config.ConfigBase;
+import net.createmod.catnip.config.ConfigBase;
 
 @SuppressWarnings("unused")
 public class CClient extends ConfigBase {
 
-    public final ConfigGroup client = group(0, "client", Comments.client);
+    public final ConfigBase.ConfigGroup client = group(0, "client", Comments.client);
 
 
     // no group

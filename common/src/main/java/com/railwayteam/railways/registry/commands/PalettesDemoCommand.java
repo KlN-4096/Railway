@@ -21,12 +21,12 @@ package com.railwayteam.railways.registry.commands;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.railwayteam.railways.content.palettes.boiler.BoilerBlock;
 import com.railwayteam.railways.registry.CRPalettes.Styles;
-import com.simibubi.create.foundation.utility.Components;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.coordinates.BlockPosArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction.Axis;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -54,7 +54,7 @@ public class PalettesDemoCommand {
                         pattern.place(ctx.getSource().getLevel(), origin, dyeColor);
                     }
 
-                    ctx.getSource().sendSuccess(() -> Components.literal("Placed palettes blocks"), true);
+                    ctx.getSource().sendSuccess(() -> Component.literal("Placed palettes blocks"), true);
                     return 1;
                 }));
     }
